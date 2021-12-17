@@ -35,10 +35,8 @@ namespace Contoso.WebApi
 
             services.AddMvc(options => options.EnableEndpointRouting = false).SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
-            // ******************************************
-            // TODO #2: Update the code in this block to set the database connection from a Key Vault secret
-            services.AddDbContext<ContosoDbContext>(// Add the options to retrieve the database connection string from key vault)
-            // ******************************************
+            services.AddDbContext<ContosoDbContext>(options =>
+                options.UseSqlServer(Configuration["SqlConnectionString"]));
 
             // Register the Swagger generator
             services.AddSwaggerGen(c =>
